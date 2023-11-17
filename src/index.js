@@ -1,6 +1,5 @@
 import { createGalleryCards } from "./js/gallery-cards.js";
 import { getPhotos} from "./js/data-methods.js";
-//import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import Notiflix from 'notiflix';
 
 const form = document.querySelector('.search-form');
