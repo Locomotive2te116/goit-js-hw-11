@@ -12,10 +12,10 @@ export async function getPhotos(userInput, page) {
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
-        per_page: 3,
+        per_page: 40,
         page,
       });
   const response = await axios.get(`${BASE_URL}?${params}`);
 
-  return response.data.hits
+  return response.data
 };
