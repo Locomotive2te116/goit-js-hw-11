@@ -8,7 +8,7 @@ const input = document.querySelector('input');
 const loadMoreButton = document.querySelector('.load-more');
 let userInput;
 let page = 1;
-totalAmountOfPhoto = 0;
+let totalAmountOfPhoto = 0;
 let arrOfPhotos = [];
 
 async function getData(userInput, page) {
