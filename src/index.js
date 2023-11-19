@@ -8,12 +8,13 @@ const input = document.querySelector('input');
 const loadMoreButton = document.querySelector('.load-more');
 let userInput;
 let page = 1;
+let per_page = 40;
 let totalAmountOfPhoto = 0;
 let arrOfPhotos = [];
 
-async function getData(userInput, page) {
+async function getData(userInput, page, per_page) {
          try {              
-             const response = await getPhotos(userInput, page);
+             const response = await getPhotos(userInput, page, per_page);
              totalAmountOfPhoto = response.totalHits;
              arrOfPhotos = response.hits;
        
@@ -29,26 +30,42 @@ form.addEventListener('submit', async(event) => {
     event.preventDefault();
     page = 1;
     galleryBox.innerHTML = '';
-    userInput = input.value;
-   await getData(userInput, page)
+  userInput = input.value.trim();
+  if (!userInput) { 
+    Notiflix.Notify.failure('Sorry, you need to insert the text.')
+    return;
+  }
+  
+   await getData(userInput, page, per_page)
 
-    if (arrOfPhotos.length === 0) {
+    if (arrOfPhotos.length === 0 ) {
         Notiflix.Notify.info(`Sorry, there are no images matching your search query. Please try again.`);
       loadMoreButton.classList.add('is-hidden');
-    } else { 
+    }
+     if (arrOfPhotos.length < per_page) {
+    Notiflix.Notify.info(`We're sorry, but that all of search results.`);
+    loadMoreButton.classList.add('is-hidden');
+  }
+     else { 
         Notiflix.Notify.success(`Hooray! We found ${totalAmountOfPhoto} images.`);
         loadMoreButton.classList.remove('is-hidden');
-    }
+  }
+ 
    
 });
   
 loadMoreButton.addEventListener('click', async () => {
    page += 1;
   console.log(page);
-  await getData(userInput, page);
+  await getData(userInput, page, per_page);
   if (arrOfPhotos.length === 0) {
     Notiflix.Notify.info(`We're sorry, but you've reached the end of search results.`);
     loadMoreButton.classList.add('is-hidden');
   }
+  if (arrOfPhotos.length < per_page && arrOfPhotos.length > 0) {
+    Notiflix.Notify.info(`We're sorry, but that all of search results.`);
+    loadMoreButton.classList.add('is-hidden');
+  }
+  
     
 });
