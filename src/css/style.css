@@ -19,11 +19,14 @@ body {
 
 form {
     display: flex;
+
     margin: auto;
     justify-content: center;
     gap: 40px;
     padding: 20px 0 40px;
-   
+   position: fixed;
+   left: 800px;
+   top: 40px;
 }
 
 .serch-input {
@@ -86,6 +89,7 @@ img {
 .gallery {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 180px;
 }
 
 .photo-card {
