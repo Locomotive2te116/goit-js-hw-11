@@ -36,6 +36,7 @@ form.addEventListener('submit', async(event) => {
   userInput = input.value.trim();
   if (!userInput) { 
     Notiflix.Notify.failure('Sorry, you need to insert the text.')
+    loadMoreButton.classList.add('is-hidden');
     return;
   }
   
