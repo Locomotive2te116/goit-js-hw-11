@@ -2,8 +2,8 @@
 export function createGalleryCards(arrOfPhotos) {
     const photos = arrOfPhotos.map(photo => {
         return `
-        <div class="photo-card">
-        <img class ="photo-img" src="${photo.webformatURL}" alt="${photo.tags}" loading="lazy" data-bigImg=${photo.largeImageURL}/>
+       <a class="photo-card" href="${photo.largeImageURL}">
+              <img src="${photo.webformatURL}" alt="${photo.tags}" loading="lazy" class="photo-img"" data-bigImg=${photo.largeImageURL}/>
         <div class="info">
           <p class="info-item">
             <b>Likes: </b> ${photo.likes}
@@ -18,7 +18,8 @@ export function createGalleryCards(arrOfPhotos) {
             <b>Downloads: </b> ${photo.downloads}
           </p>
         </div>
-      </div>
+      </a>
+      
       `
       })
       .join('');

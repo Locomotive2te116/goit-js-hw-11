@@ -1,6 +1,8 @@
 import { createGalleryCards } from "./js/gallery-cards.js";
 import { getPhotos} from "./js/data-methods.js";
 import Notiflix from 'notiflix';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const form = document.querySelector('.search-form');
 const galleryBox = document.querySelector('.gallery');
@@ -18,7 +20,8 @@ async function getData(userInput, page, per_page) {
              totalAmountOfPhoto = response.totalHits;
              arrOfPhotos = response.hits;
        
-    galleryBox.insertAdjacentHTML('beforeend', createGalleryCards(arrOfPhotos));
+           galleryBox.insertAdjacentHTML('beforeend', createGalleryCards(arrOfPhotos));
+           const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250, });
   } catch (error) {
       console.log(error);
       Notiflix.Notify.info(`❌ Oops! ${error}`);
@@ -36,7 +39,8 @@ form.addEventListener('submit', async(event) => {
     return;
   }
   
-   await getData(userInput, page, per_page)
+  await getData(userInput, page, per_page);
+  
 
     if (arrOfPhotos.length === 0 ) {
         Notiflix.Notify.info(`Sorry, there are no images matching your search query. Please try again.`);
@@ -58,6 +62,14 @@ loadMoreButton.addEventListener('click', async () => {
    page += 1;
   console.log(page);
   await getData(userInput, page, per_page);
+  const { height: cardHeight } = document
+  .querySelector(".gallery")
+  .firstElementChild.getBoundingClientRect();
+
+window.scrollBy({
+  top: cardHeight * 2,
+  behavior: "smooth",
+});
   if (arrOfPhotos.length === 0) {
     Notiflix.Notify.info(`We're sorry, but you've reached the end of search results.`);
     loadMoreButton.classList.add('is-hidden');
