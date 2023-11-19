@@ -11,9 +11,10 @@ button {
     cursor: pointer;
 }
 
+
 body {
-    background-image: url('../images/bgimg.jpg');
-  /*  background-color: rgb(113, 213, 234);*/
+    background: url('../images/bgimg.jpg') fixed;
+    
 }
 
 form {
@@ -22,6 +23,7 @@ form {
     justify-content: center;
     gap: 40px;
     padding: 20px 0 40px;
+   
 }
 
 .serch-input {
