@@ -13,7 +13,6 @@ let page = 1;
 let per_page = 40;
 let totalAmountOfPhoto = 0;
 let arrOfPhotos = [];
-//let lastPage;
 async function getData(userInput, page, per_page) {
          try {              
              const response = await getPhotos(userInput, page, per_page);
@@ -24,7 +23,7 @@ async function getData(userInput, page, per_page) {
            const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250, });
            const lastPage = Math.ceil(totalAmountOfPhoto / per_page);
            
-           if (lastPage === page ) {
+           if (lastPage === page && page !== 1) {
                Notiflix.Notify.info(`We're sorry, but that all of search results.`);
                 loadMoreButton.classList.add('is-hidden');
            }
@@ -70,7 +69,7 @@ form.addEventListener('submit', async (event) => {
 loadMoreButton.addEventListener('click', async () => {
   
    page += 1;
-  console.log(page);
+  
   await getData(userInput, page, per_page);
 
   const { height: cardHeight } = document.querySelector(".gallery").firstElementChild.getBoundingClientRect();
