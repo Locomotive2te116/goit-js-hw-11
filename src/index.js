@@ -82,10 +82,5 @@ window.scrollBy({
     Notiflix.Notify.info(`We're sorry, but you've reached the end of search results.`);
     loadMoreButton.classList.add('is-hidden');
   }
-   if (arrOfPhotos.length < per_page && arrOfPhotos.length > 0) {
-    Notiflix.Notify.info(`We're sorry, but that all of search results.`);
-    loadMoreButton.classList.add('is-hidden');
-  }
-
-    
+      
 });
