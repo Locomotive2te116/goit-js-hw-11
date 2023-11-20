@@ -1,5 +1,5 @@
 import { createGalleryCards } from "./js/gallery-cards.js";
-import { getPhotos} from "./js/data-methods.js";
+import { getPhotos} from "./js/api.js";
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
@@ -13,7 +13,7 @@ let page = 1;
 let per_page = 40;
 let totalAmountOfPhoto = 0;
 let arrOfPhotos = [];
-
+let lastPage;
 async function getData(userInput, page, per_page) {
          try {              
              const response = await getPhotos(userInput, page, per_page);
@@ -22,6 +22,12 @@ async function getData(userInput, page, per_page) {
        
            galleryBox.insertAdjacentHTML('beforeend', createGalleryCards(arrOfPhotos));
            const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250, });
+           lastPage = totalAmountOfPhoto / per_page;
+           
+           if (lastPage = page ) {
+               Notiflix.Notify.info(`We're sorry, but that all of search results.`);
+                loadMoreButton.classList.add('is-hidden');
+           }
   } catch (error) {
       console.log(error);
       Notiflix.Notify.info(`❌ Oops! ${error}`);
@@ -48,7 +54,8 @@ form.addEventListener('submit', async(event) => {
       loadMoreButton.classList.add('is-hidden');
     }
      if (arrOfPhotos.length < per_page) {
-    Notiflix.Notify.info(`We're sorry, but that all of search results.`);
+       // Notiflix.Notify.info(`We're sorry, but that all of search results.`);
+       Notiflix.Notify.success(`Hooray! We found ${totalAmountOfPhoto} images.`);
     loadMoreButton.classList.add('is-hidden');
   }
      else { 
