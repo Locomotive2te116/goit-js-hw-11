@@ -55,7 +55,7 @@ form.addEventListener('submit', async (event) => {
       loadMoreButton.classList.add('is-hidden');
     }
      if (arrOfPhotos.length < per_page) {
-       // Notiflix.Notify.info(`We're sorry, but that all of search results.`);
+       
        Notiflix.Notify.success(`Hooray! We found ${totalAmountOfPhoto} images.`);
     loadMoreButton.classList.add('is-hidden');
   }
