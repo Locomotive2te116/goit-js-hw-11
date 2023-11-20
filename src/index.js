@@ -24,7 +24,7 @@ async function getData(userInput, page, per_page) {
            const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250, });
            lastPage = totalAmountOfPhoto / per_page;
            
-           if (lastPage = page ) {
+           if (lastPage === page ) {
                Notiflix.Notify.info(`We're sorry, but that all of search results.`);
                 loadMoreButton.classList.add('is-hidden');
            }
@@ -35,7 +35,8 @@ async function getData(userInput, page, per_page) {
 }
    
 
-form.addEventListener('submit', async(event) => {
+form.addEventListener('submit', async (event) => {
+ 
     event.preventDefault();
     page = 1;
     galleryBox.innerHTML = '';
@@ -67,13 +68,12 @@ form.addEventListener('submit', async(event) => {
 });
   
 loadMoreButton.addEventListener('click', async () => {
+  
    page += 1;
   console.log(page);
   await getData(userInput, page, per_page);
-  const { height: cardHeight } = document
-  .querySelector(".gallery")
-  .firstElementChild.getBoundingClientRect();
 
+  const { height: cardHeight } = document.querySelector(".gallery").firstElementChild.getBoundingClientRect();
 window.scrollBy({
   top: cardHeight * 2,
   behavior: "smooth",
@@ -82,10 +82,15 @@ window.scrollBy({
     Notiflix.Notify.info(`We're sorry, but you've reached the end of search results.`);
     loadMoreButton.classList.add('is-hidden');
   }
-  if (arrOfPhotos.length < per_page && arrOfPhotos.length > 0) {
+   if (arrOfPhotos.length < per_page && arrOfPhotos.length > 0) {
     Notiflix.Notify.info(`We're sorry, but that all of search results.`);
     loadMoreButton.classList.add('is-hidden');
   }
+  if (lastPage === page ) {
+               Notiflix.Notify.info(`We're sorry, but that all of search results.`);
+    loadMoreButton.classList.add('is-hidden');
+    return;
+           }
   
     
 });
